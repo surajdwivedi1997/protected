@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
+import Nav from "./component/Nav";
+import Home from "./component/Home";
+import Public from "./component/Public";
+import Private from "./component/Private"
+
+import ProtectedRoute from "./component/ProtectedRoute";
+import NotFound from "./component/NotFound";
+
+export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Protected routes in react-router-dom v6.</h1>
+      <Router>
+        <Nav />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/public" element={<Public />} />
+          <Route path="*" element={<NotFound />} />
+          <Route
+            path="/private"
+            element={
+              <ProtectedRoute>
+                <Private />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Router>
     </div>
   );
 }
-
-export default App;
